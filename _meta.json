@@ -1,0 +1,18 @@
+{
+  "ownerId": "FILL_IN: run `clawhub inspect --json` and copy the owner.userId field (NOT your handle)",
+  "slug": "anspire-search",
+  "version": "1.0.0",
+  "publishedAt": "2026-03-20T00:00:00Z",
+  "requiredEnvVars": ["ANSPIRE_API_KEY"],
+  "primaryCredential": {
+    "type": "env",
+    "field": "ANSPIRE_API_KEY",
+    "required": true,
+    "sensitive": true,
+    "notes": "Anspire Search API key. Read fresh from environment at runtime — never embedded as literals. Rotate immediately if host is compromised."
+  },
+  "requires": {
+    "anyBinaries": ["curl"],
+    "os": ["windows", "macos", "linux"]
+  }
+}
