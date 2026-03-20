@@ -23,6 +23,24 @@ An [OpenClaw](https://openclaw.ai) skill that brings [Anspire](https://aisearch.
 | 🔗 Cross-domain Fusion & Cognitive Ranking | Hybrid cluster + federated learning framework for real-time indexing across encyclopedias, news, and academic resources |
 | ⚡ Millisecond Knowledge Updates | Break through the information lag of traditional search systems |
 
+### Installation
+
+**Method 1 — ClawHub (recommended)**
+
+```bash
+clawhub install anspire-search
+```
+
+**Method 2 — Direct from GitHub**
+
+Point OpenClaw directly at the SKILL.md in this repo:
+
+```bash
+openclaw skills add https://raw.githubusercontent.com/Anspire-AI/Anspire-search/main/SKILL.md
+```
+
+---
+
 ### Setup
 
 Set your API key — that's the only step:

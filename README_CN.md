@@ -23,6 +23,24 @@
 | 🔗 跨域信息融合与认知增强排序 | 基于混合式集群与联邦学习框架，并行捕捞主流搜索引擎，实时覆盖百科、新闻资讯、学术资源等信息源 |
 | ⚡ 毫秒级知识更新 | 突破传统搜索系统的信息滞后瓶颈，实现毫秒级的知识更新与策略迭代 |
 
+### 安装方式
+
+**方式一 —— ClawHub 安装（推荐）**
+
+```bash
+clawhub install anspire-search
+```
+
+**方式二 —— 直接从 GitHub 安装**
+
+让 OpenClaw 直接读取本仓库的 SKILL.md：
+
+```bash
+openclaw skills add https://raw.githubusercontent.com/Anspire-AI/Anspire-search/main/SKILL.md
+```
+
+---
+
 ### 配置
 
 设置 API Key，这是唯一需要做的事：
