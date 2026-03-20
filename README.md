@@ -19,6 +19,7 @@ An [OpenClaw](https://openclaw.ai) skill that brings [Anspire](https://aisearch.
 | 🧠 多模态内容检索 | Semantic parsing + cross-modal retrieval: text, images, video, news, flights, hotels · 语义解析 + 图文跨模态检索，覆盖文字、图片、新闻、机票酒店 |
 | 🤖 智能体原生架构 | Native integration with Coze, Dify, 腾讯元器, 百炼 and more · 原生支持 Coze、Dify、腾讯元器、百炼等主流 AI 平台 |
 | ⚡ 毫秒级知识更新 | Break through the information lag of traditional search systems · 突破传统搜索的信息滞后，实现毫秒级策略迭代 |
+| 🔗 跨域信息融合与认知增强排序 | Parallel crawling via hybrid cluster + federated learning framework, covering encyclopedias, news, and academic sources in real time · 基于混合式集群与联邦学习框架，并行捕捞主流搜索引擎，实时覆盖百科、新闻资讯、学术资源等信息源 |
 
 ---
 
@@ -88,13 +89,6 @@ Snippet: Description from search results
 
 ---
 
-## Integrations · 集成平台
-
-Anspire natively supports / Anspire 原生支持：
-
-**Coze · Dify · 腾讯元器 · 百炼 · OpenClaw** and more
-
----
 
 ## License · 许可证
 
