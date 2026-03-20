@@ -89,8 +89,5 @@ API 返回 JSON，从每条结果中提取以下字段：
 
 ---
 
-> Optional CLI tool for terminal use: `chmod +x search.sh && ./search.sh "query"`
-> 可选终端工具：`chmod +x search.sh && ./search.sh "query"`
->
 > All API calls go to `plugin.anspire.cn` only. No data forwarded to third parties.
 > 所有 API 调用仅访问 `plugin.anspire.cn`，不会将数据转发给第三方。
