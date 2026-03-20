@@ -51,14 +51,18 @@ curl --silent --show-error --fail --location --get \
 
 ### Output Format
 
-```
---- Result 1 ---
-Title: Page Title
-Link: https://example.com/page
-Snippet: Description from search results
-
---- Result 2 ---
-...
+```json
+{
+  "results": [
+    {
+      "title": "Page Title",
+      "url": "https://example.com/page",
+      "content": "Full article content...",
+      "score": 0.997,
+      "date": "2026-03-10T10:10:00+08:00"
+    }
+  ]
+}
 ```
 
 ### When to Use

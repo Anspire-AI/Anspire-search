@@ -51,14 +51,18 @@ curl --silent --show-error --fail --location --get \
 
 ### 输出格式
 
-```
---- Result 1 ---
-Title: 页面标题
-Link: https://example.com/page
-Snippet: 搜索结果摘要
-
---- Result 2 ---
-...
+```json
+{
+  "results": [
+    {
+      "title": "页面标题",
+      "url": "https://example.com/page",
+      "content": "文章正文内容...",
+      "score": 0.997,
+      "date": "2026-03-10T10:10:00+08:00"
+    }
+  ]
+}
 ```
 
 ### 使用时机

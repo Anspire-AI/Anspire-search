@@ -70,7 +70,9 @@ API 返回 JSON，从每条结果中提取以下字段：
 |---|---|
 | `title` | Page title · 页面标题 |
 | `url` | Page URL · 页面链接 |
-| `snippet` | Summary excerpt · 摘要片段 |
+| `content` | Full article content · 文章正文内容 |
+| `score` | Relevance score · 相关性评分 |
+| `date` | Publication date · 发布日期 |
 
 ## Required Behavior · 必要行为
 
@@ -78,7 +80,7 @@ API 返回 JSON，从每条结果中提取以下字段：
    （从用户请求中提炼简洁的搜索词）
 2. Run the curl command above with `QUERY` substituted.
    （执行上方 curl 命令，将 `QUERY` 替换为实际搜索词）
-3. Parse the JSON response and extract `title`, `url`, and `snippet` per result.
+3. Parse the JSON response and extract `title`, `url`, `content`, `score`, and `date` per result.
    （解析 JSON 响应，提取每条结果的 `title`、`url`、`snippet`）
 4. Summarize the results in the user's language.
    （用用户所用语言总结搜索结果）
