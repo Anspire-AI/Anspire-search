@@ -53,19 +53,6 @@ curl --silent --show-error --fail --location --get \
 
 ---
 
-## CLI Usage · 命令行用法
-
-For terminal use / 在终端中手动使用：
-
-```bash
-chmod +x search.sh
-./search.sh "query"          # Basic search, 10 results · 基础搜索，返回 10 条
-./search.sh "query" -n 5     # Limit to 5 results · 限制返回 5 条
-./search.sh -h               # Show help · 显示帮助
-```
-
----
-
 ## Output Format · 输出格式
 
 ```
