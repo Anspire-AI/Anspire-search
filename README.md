@@ -21,7 +21,6 @@ An [OpenClaw](https://openclaw.ai) skill that brings [Anspire](https://aisearch.
 | 🌐 Omni-channel Crawling | Parallel crawling across major search engines, encyclopedias, news, and academic sources in real time |
 | 🧠 Multimodal Retrieval | Semantic parsing + cross-modal retrieval: text, images, video, news, flights, hotels |
 | 🔗 Cross-domain Fusion & Cognitive Ranking | Hybrid cluster + federated learning framework for real-time indexing across encyclopedias, news, and academic resources |
-| 🤖 Agent-native Architecture | Native integration with Coze, Dify, 腾讯元器, 百炼 and more |
 | ⚡ Millisecond Knowledge Updates | Break through the information lag of traditional search systems |
 
 ### Setup
