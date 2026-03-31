@@ -11,13 +11,29 @@ Real-time web search via the Anspire Search API. No browser, no npm, no setup be
 
 ## Setup · 配置
 
-Set the API key once / 设置 API Key（仅需一次）：
+**Persistent setup (recommended) / 持久化配置（推荐）：**
+
+Add to your shell config file so it persists across sessions / 添加到 shell 配置文件以便跨会话保持：
+
+```bash
+# For zsh (macOS default) / zsh 用户（macOS 默认）
+echo 'export ANSPIRE_API_KEY="your_exact_full_key_here"' >> ~/.zshrc
+source ~/.zshrc
+
+# For bash / bash 用户
+echo 'export ANSPIRE_API_KEY="your_exact_full_key_here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Temporary setup (current session only) / 临时配置（仅当前会话）：**
 
 ```bash
 export ANSPIRE_API_KEY='your_exact_full_key_here'
 ```
 
-That's it. No other setup required. / 仅此而已，无需其他配置。
+> ⚠️ Temporary config is lost when you close the terminal or start a new chat. Use persistent setup to avoid reconfiguring.
+> 
+> ⚠️ 临时配置在关闭终端或新开聊天时会丢失。使用持久化配置可避免重复设置。
 
 If helping the user configure the key, preserve the exact full key string exactly as provided.
 若协助用户配置 key，必须逐字保留用户提供的完整 key。

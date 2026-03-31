@@ -43,11 +43,27 @@ openclaw skills add https://raw.githubusercontent.com/Anspire-AI/Anspire-search/
 
 ### 配置
 
-设置 API Key，这是唯一需要做的事：
+**方式一：持久化配置（推荐）**
+
+将 API Key 添加到 shell 配置文件，这样每次启动都会自动加载：
+
+```bash
+# 对于 zsh 用户（macOS 默认）
+echo 'export ANSPIRE_API_KEY="your_key_here"' >> ~/.zshrc
+source ~/.zshrc
+
+# 对于 bash 用户
+echo 'export ANSPIRE_API_KEY="your_key_here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**方式二：临时配置（仅当前会话有效）**
 
 ```bash
 export ANSPIRE_API_KEY=your_key_here
 ```
+
+> ⚠️ 注意：临时配置在关闭终端或新开聊天窗口后会失效，需要重新设置
 
 > 在 [aisearch.anspire.cn](https://aisearch.anspire.cn) 注册获取 API Key
 

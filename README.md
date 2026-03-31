@@ -43,11 +43,27 @@ openclaw skills add https://raw.githubusercontent.com/Anspire-AI/Anspire-search/
 
 ### Setup
 
-Set your API key — that's the only step:
+**Option 1: Persistent Configuration (Recommended)**
+
+Add the API key to your shell configuration file so it loads automatically:
+
+```bash
+# For zsh users (macOS default)
+echo 'export ANSPIRE_API_KEY="your_key_here"' >> ~/.zshrc
+source ~/.zshrc
+
+# For bash users
+echo 'export ANSPIRE_API_KEY="your_key_here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Option 2: Temporary Configuration (Current session only)**
 
 ```bash
 export ANSPIRE_API_KEY=your_key_here
 ```
+
+> ⚠️ Note: Temporary configuration will be lost when you close the terminal or open a new chat window
 
 > Get your key at [aisearch.anspire.cn](https://aisearch.anspire.cn)
 
