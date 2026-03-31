@@ -51,11 +51,28 @@ export ANSPIRE_API_KEY=your_key_here
 
 > 在 [aisearch.anspire.cn](https://aisearch.anspire.cn) 注册获取 API Key
 
-### Agent 用法
+### 使用方式
 
-安装后，OpenClaw agent 在需要实时信息时会自动调用此 Skill，无需脚本路径，无需额外配置。
+**方式一：Agent 模式（自动）**
 
-底层 API 调用：
+安装后，OpenClaw agent 在需要实时信息时会自动调用此 Skill。
+
+**方式二：直接执行脚本**
+
+使用提供的封装脚本进行手动搜索：
+
+```bash
+# Python 封装（推荐）- 格式化输出
+python scripts/search.py "搜索关键词" --top-k 10
+
+# Python 封装 - JSON 输出
+python scripts/search.py "搜索关键词" --json
+
+# Shell 封装
+./scripts/search.sh "搜索关键词" 10
+```
+
+**方式三：直接调用 API**
 
 ```bash
 curl --silent --show-error --fail --location --get \
@@ -91,12 +108,26 @@ curl --silent --show-error --fail --location --get \
 | 🔬 查证核实 | "2026 年最新研究报告" |
 | 🌍 实时事实 | "上海今天天气" / "现在几点" |
 
+### 文件结构
+
+```
+anspire-search/
+├── SKILL.md              # Skill 文档
+├── .env.example          # 环境变量模板
+├── scripts/
+│   ├── search.py         # Python 封装（推荐）
+│   └── search.sh         # Shell 封装
+├── README.md             # 英文说明
+└── README_CN.md          # 本文件
+```
+
 ### 依赖
 
 | 依赖 | 说明 |
 |---|---|
 | `ANSPIRE_API_KEY` | 必填——在 [aisearch.anspire.cn](https://aisearch.anspire.cn) 注册获取 |
 | `curl` | 必填——macOS/Linux 预装 |
+| `python3` | 可选——使用 Python 封装脚本时需要 |
 
 ### 许可证
 

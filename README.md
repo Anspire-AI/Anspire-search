@@ -51,11 +51,28 @@ export ANSPIRE_API_KEY=your_key_here
 
 > Get your key at [aisearch.anspire.cn](https://aisearch.anspire.cn)
 
-### Agent Usage
+### Usage
 
-Once installed, your OpenClaw agent automatically uses this skill when it needs live web information. No script, no extra setup.
+**Option 1: Agent Mode (Automatic)**
 
-The underlying API call:
+Once installed, your OpenClaw agent automatically uses this skill when it needs live web information.
+
+**Option 2: Direct Script Execution**
+
+Use the provided wrapper scripts for manual searches:
+
+```bash
+# Python wrapper (recommended) - formatted output
+python scripts/search.py "your search query" --top-k 10
+
+# Python wrapper - JSON output
+python scripts/search.py "your search query" --json
+
+# Shell wrapper
+./scripts/search.sh "your search query" 10
+```
+
+**Option 3: Direct API Call**
 
 ```bash
 curl --silent --show-error --fail --location --get \
@@ -91,12 +108,26 @@ curl --silent --show-error --fail --location --get \
 | 🔬 Research & fact-checking | "recent climate research 2026" |
 | 🌍 Real-time facts | "current weather in Shanghai" |
 
+### File Structure
+
+```
+anspire-search/
+├── SKILL.md              # Skill documentation
+├── .env.example          # Environment variable template
+├── scripts/
+│   ├── search.py         # Python wrapper (recommended)
+│   └── search.sh         # Shell wrapper
+├── README.md             # This file
+└── README_CN.md          # Chinese README
+```
+
 ### Requirements
 
 | Requirement | Details |
 |---|---|
 | `ANSPIRE_API_KEY` | Required — get at [aisearch.anspire.cn](https://aisearch.anspire.cn) |
 | `curl` | Required — pre-installed on macOS/Linux |
+| `python3` | Optional — for using the Python wrapper script |
 
 ### License
 

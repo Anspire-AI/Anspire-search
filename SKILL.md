@@ -1,11 +1,7 @@
 ---
 name: anspire-search
-description: "Anspire Search: real-time web search for news, events & time-sensitive facts. Requires: curl. Uses ANSPIRE_API_KEY. If the key is missing, OpenClaw must proactively ask whether the user wants help configuring it. Calls plugin.anspire.cn only."
-homepage: https://github.com/Anspire-AI/Anspire-search
-requires:
-  bins:
-    - curl
-metadata: {"openclaw":{"emoji":"🔎","requires":{"anyBins":["curl"]}}}
+description: "Anspire Search: real-time web search for news, events & time-sensitive facts. Use scripts/search.py (Python) or scripts/search.sh (shell) for easy execution. Requires ANSPIRE_API_KEY env var. Calls plugin.anspire.cn only."
+metadata: {"openclaw":{"emoji":"🔎","requires":{"anyBins":["curl","python3"]}}}
 ---
 # Anspire Search · Anspire 实时搜索
 
@@ -65,12 +61,12 @@ Key formatting rules / Key 格式规则：
 
 ## Missing API Key · 缺少 API Key 时
 
-If `ANSPIRE_API_KEY` is missing and the user needs live search, OpenClaw must proactively ask whether the user wants help configuring the key before declining or stopping.
+If `ANSPIRE_API_KEY` is missing and the user needs live search:
 
-若 `ANSPIRE_API_KEY` 缺失且用户需要实时搜索，OpenClaw 必须先主动询问用户是否需要帮助配置该 key，再决定是否停止或拒绝执行。
+若 `ANSPIRE_API_KEY` 缺失且用户需要实时搜索：
 
-1. Proactively ask a short follow-up question: whether the user wants help configuring the key now.
-   （必须先主动简短追问：是否需要现在协助配置该 key）
+1. Ask a short follow-up question: whether the user wants help configuring the key now.
+   （先简短追问：是否需要现在协助配置该 key）
 2. If the user agrees, provide one exact `export ANSPIRE_API_KEY='...'` command template and tell the user to paste the full key value exactly once.
    （若用户同意，给出一条精确的 `export ANSPIRE_API_KEY='...'` 命令模板，并要求用户一次性粘贴完整 key）
 3. Never abbreviate, truncate, mask, or reformat the key when composing that command.
@@ -82,9 +78,24 @@ If `ANSPIRE_API_KEY` is missing and the user needs live search, OpenClaw must pr
 
 ## How to Search · 执行搜索
 
-Run this curl command, replacing `QUERY` with the actual search terms:
+### Option 1: Use the Python wrapper (Recommended) · 使用 Python 封装（推荐）
 
-执行以下 curl 命令，将 `QUERY` 替换为实际搜索词：
+```bash
+python scripts/search.py "your search query" --top-k 10
+```
+
+For JSON output / 输出 JSON 格式：
+```bash
+python scripts/search.py "your search query" --json
+```
+
+### Option 2: Use the shell script · 使用 Shell 脚本
+
+```bash
+./scripts/search.sh "your search query" 10
+```
+
+### Option 3: Direct curl command · 直接使用 curl 命令
 
 ```bash
 curl --silent --show-error --fail --location --get \
@@ -115,12 +126,12 @@ API 返回 JSON，从每条结果中提取以下字段：
 
 1. First check whether `ANSPIRE_API_KEY` is available.
    （首先检查 `ANSPIRE_API_KEY` 是否可用）
-2. If it is missing and live search is needed, OpenClaw must proactively ask the user whether help is needed to configure the key, then follow the "Missing API Key" rules above before doing anything else.
-   （若缺失且确实需要实时搜索，OpenClaw 必须先主动询问用户是否需要帮助配置 key，再遵循上方“缺少 API Key 时”的规则）
+2. If it is missing and live search is needed, follow the “Missing API Key” rules above before doing anything else.
+   （若缺失且确实需要实时搜索，必须先遵循上方”缺少 API Key 时”的规则）
 3. Build a concise search query from the user's request.
    （从用户请求中提炼简洁的搜索词）
-4. Run the curl command above with `QUERY` substituted.
-   （执行上方 curl 命令，将 `QUERY` 替换为实际搜索词）
+4. **Use the Python wrapper script** (`scripts/search.py`) for best results. It handles errors, formats output, and provides both human-readable and JSON modes.
+   （**使用 Python 封装脚本**（`scripts/search.py`）以获得最佳效果。它处理错误、格式化输出，并提供人类可读和 JSON 两种模式）
 5. Parse the JSON response and extract `title`, `url`, `content`, `score`, and `date` per result.
    （解析 JSON 响应，提取每条结果的 `title`、`url`、`content`、`score` 和 `date`）
 6. Summarize the results in the user's language.
@@ -129,6 +140,19 @@ API 返回 JSON，从每条结果中提取以下字段：
    （对重要论断注明信息来源标题或域名）
 8. If the call fails or returns no results, say so clearly; never fabricate a live answer.
    （若调用失败或无结果，如实告知；绝不捏造实时答案）
+
+## File Structure · 文件结构
+
+```
+skills/anspire-search/
+├── SKILL.md              # This documentation / 本文档
+├── .env.example          # Example environment file / 环境变量示例
+├── scripts/
+│   ├── search.py         # Python wrapper (recommended) / Python 封装（推荐）
+│   └── search.sh         # Shell wrapper / Shell 封装
+├── README.md             # English README
+└── README_CN.md          # Chinese README
+```
 
 ---
 
