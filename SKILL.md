@@ -66,6 +66,10 @@ Key formatting rules / Key 格式规则：
 * The answer would be unreliable without live internet access
   （不依赖实时互联网则无法给出可靠答案）
 
+**Important**: When this skill is triggered, immediately check for `ANSPIRE_API_KEY` and proactively guide the user to configure it persistently if missing.
+
+**重要**：当此 skill 被触发时，立即检查 `ANSPIRE_API_KEY`，若缺失则主动引导用户配置为持久化。
+
 ## When Not to Use · 不适用场景
 
 * The request can be answered from stable knowledge alone
@@ -81,15 +85,27 @@ If `ANSPIRE_API_KEY` is missing and the user needs live search:
 
 若 `ANSPIRE_API_KEY` 缺失且用户需要实时搜索：
 
-1. Ask a short follow-up question: whether the user wants help configuring the key now.
-   （先简短追问：是否需要现在协助配置该 key）
-2. If the user agrees, provide one exact `export ANSPIRE_API_KEY='...'` command template and tell the user to paste the full key value exactly once.
-   （若用户同意，给出一条精确的 `export ANSPIRE_API_KEY='...'` 命令模板，并要求用户一次性粘贴完整 key）
-3. Never abbreviate, truncate, mask, or reformat the key when composing that command.
-   （拼接该命令时，绝不可缩写、截断、打码或改写 key）
-4. Never add spaces or line breaks around the key value inside the quotes.
+1. **Proactively ask** whether the user wants to configure the API key now for persistent use across all sessions.
+   （**主动询问**用户是否需要现在配置 API key，以便在所有会话中持久使用）
+2. If the user agrees, ask them to provide their API key.
+   （若用户同意，请求用户提供 API key）
+3. When the user provides the key, **automatically configure it persistently** by writing to the shell config file:
+   （当用户提供 key 时，**自动配置为持久化**，写入 shell 配置文件：）
+   - Detect the user's shell (zsh or bash)
+     （检测用户的 shell 类型）
+   - Write `export ANSPIRE_API_KEY="<user_key>"` to `~/.zshrc` or `~/.bashrc`
+     （将 `export ANSPIRE_API_KEY="<user_key>"` 写入 `~/.zshrc` 或 `~/.bashrc`）
+   - Run `source ~/.zshrc` or `source ~/.bashrc` to load it immediately
+     （执行 `source` 命令立即加载）
+4. **Never use temporary `export` commands** - always configure persistently so the key works in future sessions.
+   （**绝不使用临时 `export` 命令** - 始终配置为持久化，确保 key 在未来会话中可用）
+5. Never abbreviate, truncate, mask, or reformat the key when writing to the config file.
+   （写入配置文件时，绝不可缩写、截断、打码或改写 key）
+6. Never add spaces or line breaks around the key value inside the quotes.
    （引号内的 key 值前后不得添加空格或换行）
-5. If the user declines or does not provide a key, clearly state that live search cannot be run yet.
+7. After configuration, confirm to the user that the key has been saved persistently and will work in all future sessions.
+   （配置完成后，向用户确认 key 已持久化保存，将在所有未来会话中生效）
+8. If the user declines or does not provide a key, clearly state that live search cannot be run yet.
    （若用户拒绝或未提供 key，要明确说明当前无法执行实时搜索）
 
 ## How to Search · 执行搜索
@@ -140,21 +156,23 @@ API 返回 JSON，从每条结果中提取以下字段：
 
 ## Required Behavior · 必要行为
 
-1. First check whether `ANSPIRE_API_KEY` is available.
-   （首先检查 `ANSPIRE_API_KEY` 是否可用）
-2. If it is missing and live search is needed, follow the “Missing API Key” rules above before doing anything else.
-   （若缺失且确实需要实时搜索，必须先遵循上方”缺少 API Key 时”的规则）
-3. Build a concise search query from the user's request.
+1. **At the start of any conversation where live search might be needed**, proactively check whether `ANSPIRE_API_KEY` is available.
+   （**在任何可能需要实时搜索的对话开始时**，主动检查 `ANSPIRE_API_KEY` 是否可用）
+2. If the key is missing, **immediately and proactively ask** the user whether they want to configure it now for persistent use. Do not wait for the user to ask.
+   （若 key 缺失，**立即主动询问**用户是否需要现在配置以便持久使用。不要等用户询问）
+3. When the user provides the key, **automatically configure it persistently** following the “Missing API Key” rules above.
+   （当用户提供 key 时，**自动配置为持久化**，遵循上方”缺少 API Key 时”的规则）
+4. Build a concise search query from the user's request.
    （从用户请求中提炼简洁的搜索词）
-4. **Use the Python wrapper script** (`scripts/search.py`) for best results. It handles errors, formats output, and provides both human-readable and JSON modes.
+5. **Use the Python wrapper script** (`scripts/search.py`) for best results. It handles errors, formats output, and provides both human-readable and JSON modes.
    （**使用 Python 封装脚本**（`scripts/search.py`）以获得最佳效果。它处理错误、格式化输出，并提供人类可读和 JSON 两种模式）
-5. Parse the JSON response and extract `title`, `url`, `content`, `score`, and `date` per result.
+6. Parse the JSON response and extract `title`, `url`, `content`, `score`, and `date` per result.
    （解析 JSON 响应，提取每条结果的 `title`、`url`、`content`、`score` 和 `date`）
-6. Summarize the results in the user's language.
+7. Summarize the results in the user's language.
    （用用户所用语言总结搜索结果）
-7. Cite source titles or domains for important claims.
+8. Cite source titles or domains for important claims.
    （对重要论断注明信息来源标题或域名）
-8. If the call fails or returns no results, say so clearly; never fabricate a live answer.
+9. If the call fails or returns no results, say so clearly; never fabricate a live answer.
    （若调用失败或无结果，如实告知；绝不捏造实时答案）
 
 ## File Structure · 文件结构
@@ -168,6 +186,54 @@ skills/anspire-search/
 │   └── search.sh         # Shell wrapper / Shell 封装
 ├── README.md             # English README
 └── README_CN.md          # Chinese README
+```
+
+## Example Workflow · 示例流程
+
+**Scenario 1: First-time user without API key / 场景 1：首次使用，未配置 API key**
+
+```
+User: "Search for latest AI news"
+用户："搜索最新 AI 新闻"
+
+OpenClaw: 
+1. Checks for ANSPIRE_API_KEY - not found
+   检查 ANSPIRE_API_KEY - 未找到
+2. Proactively asks: "I notice you haven't configured the Anspire API key yet. 
+   Would you like me to help you set it up now? This will save it permanently 
+   so you won't need to configure it again in future sessions."
+   主动询问："我注意到你还没有配置 Anspire API key。需要我帮你现在设置吗？
+   这会永久保存，以后的会话中就不需要再配置了。"
+
+User: "Yes, here's my key: sk-abc123..."
+用户："好的，这是我的 key：sk-abc123..."
+
+OpenClaw:
+1. Detects shell type (e.g., zsh)
+   检测 shell 类型（如 zsh）
+2. Runs: echo 'export ANSPIRE_API_KEY="sk-abc123..."' >> ~/.zshrc
+   执行：echo 'export ANSPIRE_API_KEY="sk-abc123..."' >> ~/.zshrc
+3. Runs: source ~/.zshrc
+   执行：source ~/.zshrc
+4. Confirms: "✓ API key saved permanently to ~/.zshrc. You're all set!"
+   确认："✓ API key 已永久保存到 ~/.zshrc。配置完成！"
+5. Proceeds with the search
+   继续执行搜索
+```
+
+**Scenario 2: Returning user with configured key / 场景 2：已配置 key 的用户**
+
+```
+User: "What's the latest news about OpenAI?"
+用户："OpenAI 最新消息是什么？"
+
+OpenClaw:
+1. Checks for ANSPIRE_API_KEY - found
+   检查 ANSPIRE_API_KEY - 已找到
+2. Directly executes search without asking
+   直接执行搜索，无需询问
+3. Returns results
+   返回搜索结果
 ```
 
 ---
