@@ -45,7 +45,9 @@ openclaw skills add https://raw.githubusercontent.com/Anspire-AI/Anspire-search/
 
 **方式一：持久化配置（推荐）**
 
-将 API Key 添加到 shell 配置文件，这样每次启动都会自动加载：
+将 API Key 添加到系统配置，这样每次启动都会自动加载：
+
+**macOS/Linux：**
 
 ```bash
 # 对于 zsh 用户（macOS 默认）
@@ -57,10 +59,27 @@ echo 'export ANSPIRE_API_KEY="your_key_here"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+**Windows：**
+
+```cmd
+# 永久设置（需要重启终端）
+setx ANSPIRE_API_KEY "your_key_here"
+
+# 同时为当前会话设置（可选，立即可用）
+set ANSPIRE_API_KEY=your_key_here
+```
+
 **方式二：临时配置（仅当前会话有效）**
 
 ```bash
+# macOS/Linux
 export ANSPIRE_API_KEY=your_key_here
+
+# Windows (cmd)
+set ANSPIRE_API_KEY=your_key_here
+
+# Windows (PowerShell)
+$env:ANSPIRE_API_KEY="your_key_here"
 ```
 
 > ⚠️ 注意：临时配置在关闭终端或新开聊天窗口后会失效，需要重新设置
@@ -142,7 +161,7 @@ anspire-search/
 | 依赖 | 说明 |
 |---|---|
 | `ANSPIRE_API_KEY` | 必填——在 [aisearch.anspire.cn](https://aisearch.anspire.cn) 注册获取 |
-| `curl` | 必填——macOS/Linux 预装 |
+| `curl` | 必填——macOS/Linux 预装，Windows 10+ 可用 |
 | `python3` | 可选——使用 Python 封装脚本时需要 |
 
 ### 许可证
